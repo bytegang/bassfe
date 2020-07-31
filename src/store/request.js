@@ -15,17 +15,19 @@ const httpClient = axios.create({
 });
 
 httpClient.interceptors.request.use(config => {
+    store.commit('setLoading', true)
+
     //过滤 登陆请求
     if (config.url.includes('login') || config.url.includes('register') || config.url.includes('captcha') || config.url.includes('meta')) {
         return config
     }
-    const errp = {response: {status: 412}};
+    const err = {response: {code: 412}};
     if (isJWTokenExpire()) {
-        return Promise.reject(errp)
+        return Promise.reject(err)
     }
     let token = localStorage.getItem('token');
     if (!token) {
-        return Promise.reject(errp)
+        return Promise.reject(err)
     }
     config.headers['Authorization'] = 'Bearer ' + token; // 让每个请求携带自定义token 请根据实际情况自行修改
     return config;
@@ -39,20 +41,28 @@ httpClient.interceptors.request.use(config => {
 
 // http response 拦截器
 httpClient.interceptors.response.use(response => {
-        console.log(response)
-        let res = response.data;
-        if (res.code === 200 && res.data != null) {
-            return res.data
+        store.commit('setLoading', false)
+        if (response.status !== 200) {
+            store.commit('setError', 'server not 200 error')
+            return false
         }
-        return false;
+
+        let res = response.data;
+        if (res.code !== 200){
+            store.commit('setError', 'response json body code is not 200 error')
+            return false
+        }
+
+        return res.data;
     },
     error => {
         //console.log(error)
 
         // eslint-disable-next-line no-console
         store.commit('setError', error)
+        store.commit('setLoading', false)
 
-        //return Promise.reject(error)
+        return Promise.reject(error)
 
     });
 

@@ -33,6 +33,20 @@
                       required></v-text-field>
                   </v-flex>
                 </v-layout>
+                <v-layout row>
+                  <v-flex xs6>
+                    <v-text-field
+                            name="captcha"
+                            label="Captcha"
+                            id="captcha"
+                            v-model="cv"
+                            required></v-text-field>
+                  </v-flex>
+                  <v-flex xs6>
+                    <img :src="captchaImg" @click="getCaptcha">
+
+                  </v-flex>
+                </v-layout>
                 <v-layout>
                   <v-flex xs12>
                     <v-btn type="submit" :loading="loading">Login</v-btn>
@@ -51,11 +65,14 @@
   export default {
     data () {
       return {
-        email: '',
-        password: ''
+        cv:'',
+        email: 'neochau@gmail.com',
+        password: '123456'
       }
     },
     computed: {
+      captchaId(){ return this.$store.getters.captchaId},
+      captchaImg(){ return this.$store.getters.captchaImg},
       user () {
         return this.$store.getters.user
       },
@@ -73,9 +90,16 @@
         }
       }
     },
+    mounted(){
+      this.getCaptcha()
+    },
     methods: {
+      getCaptcha(){
+        this.cv = ''
+        this.$store.dispatch('getCaptcha')
+      },
       onSignin () {
-        this.$store.dispatch('signUserIn', {email: this.email, password: this.password})
+        this.$store.dispatch('signUserIn', {email: this.email, password: this.password,ci:this.captchaId,cv:this.cv})
       },
       onDismissed () {
         this.$store.dispatch('clearError')
