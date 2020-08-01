@@ -28,20 +28,24 @@ const AuthModule = {
                     username: res.name
                 }
                 commit('setUser', newUser)
+            }).catch(err =>{
+                commit('setError',err)
             })
 
         },
         signUserIn({commit}, payload) {
             httpClient.post(`login`, payload,{params:{ci:payload.ci,cv:payload.cv}}).then(res => {
-                const newUser = {
-                    id: res.id,
-                    username: res.name
+                if (res){
+                    const newUser = {
+                        id: res.id,
+                        username: res.name
+                    }
+                    commit('setUser', newUser)
                 }
-                commit('setUser', newUser)
-            }).catch(err =>{
-                console.log(err)
-                commit('setUser', null)
 
+            }).catch(err =>{
+                commit('setError',err)
+                commit('setUser', null)
             })
 
         },

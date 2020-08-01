@@ -1,10 +1,7 @@
 <template>
   <v-container>
-    <v-layout row v-if="error">
-      <v-flex xs12 sm6 offset-sm3>
-        <app-alert @dismissed="onDismissed" :text="error.message"></app-alert>
-      </v-flex>
-    </v-layout>
+    <app-alert ></app-alert>
+
     <v-layout row>
       <v-flex xs12 sm6 offset-sm3>
         <v-card>
@@ -86,9 +83,7 @@
       user () {
         return this.$store.getters.user
       },
-      error () {
-        return this.$store.getters.error
-      },
+
       loading () {
         return this.$store.getters.loading
       }
@@ -103,9 +98,6 @@
     methods: {
       onSignup () {
         this.$store.dispatch('signUserUp', {email: this.email, password: this.password, name: this.username})
-      },
-      onDismissed () {
-        this.$store.dispatch('clearError')
       }
     }
   }

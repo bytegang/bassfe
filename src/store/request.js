@@ -32,6 +32,7 @@ httpClient.interceptors.request.use(config => {
     config.headers['Authorization'] = 'Bearer ' + token; // 让每个请求携带自定义token 请根据实际情况自行修改
     return config;
 }, error => {
+    store.commit('setLoading', false)
 
     // 对请求错误做些什么
     // let loading = Loading.httpClient({target:'#felix'});
@@ -43,13 +44,13 @@ httpClient.interceptors.request.use(config => {
 httpClient.interceptors.response.use(response => {
         store.commit('setLoading', false)
         if (response.status !== 200) {
-            store.commit('setError', 'server not 200 error')
+            store.commit('setError', {type:"error",msg:"server failed"})
             return false
         }
 
         let res = response.data;
         if (res.code !== 200){
-            store.commit('setError', 'response json body code is not 200 error')
+            store.commit('setError',{type:"warning",msg:res.msg}, )
             return false
         }
 
