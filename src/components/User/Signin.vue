@@ -79,7 +79,7 @@
     watch: {
       user (value) {
         if (value !== null && value !== undefined) {
-          this.$router.push('/chat/0')
+          this.$router.push('/main')
         }
       }
     },
