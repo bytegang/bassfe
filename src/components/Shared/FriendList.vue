@@ -12,7 +12,7 @@
             :avatar="avatar"
             :rounded="rounded"
     >
-        <v-subheader>REPORTS</v-subheader>
+        <v-subheader>FRIENDS</v-subheader>
         <v-list-item-group v-model="item" color="primary">
             <v-list-item
                     v-for="(item, i) in items"
@@ -65,14 +65,14 @@
             disabled: false,
             dense: false,
             twoLine: false,
-            threeLine: false,
+            threeLine: true,
             shaped: false,
             flat: false,
             subheader: false,
             inactive: false,
             subGroup: false,
             nav: false,
-            avatar: false,
+            avatar: true,
             rounded: false,
         }),
         name: "FriendList"
