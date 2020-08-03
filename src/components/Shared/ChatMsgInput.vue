@@ -1,10 +1,10 @@
 <template>
-    <v-content>Left Profile</v-content>
+    
 </template>
 
 <script>
     export default {
-        name: "FriendProfile"
+        name: "ChatMsgInput"
     }
 </script>
 

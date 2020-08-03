@@ -23,15 +23,20 @@
             </template>
 
         </v-data-iterator>
+
+        <v-form>
+            <chat-msg-input></chat-msg-input>
+        </v-form>
     </v-container>
 
 </template>
 
 <script>
     import ChatMsg from "./ChatMsg";
+    import ChatMsgInput from "./ChatMsgInput";
 
     export default {
-        components: {ChatMsg},
+        components: {ChatMsg,ChatMsgInput},
         data: () => ({
             itemsPerPage: 1,
             items: [
