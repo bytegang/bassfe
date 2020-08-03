@@ -19,8 +19,6 @@ const AuthModule = {
     },
     actions: {
         signUserUp({commit}, payload) {
-            commit('setLoading', true)
-            commit('clearError')
             httpClient.post("register", payload).then(res => {
                 commit('setLoading', false)
                 const newUser = {
@@ -28,8 +26,6 @@ const AuthModule = {
                     username: res.name
                 }
                 commit('setUser', newUser)
-            }).catch(err =>{
-                commit('setError',err)
             })
 
         },
@@ -43,11 +39,7 @@ const AuthModule = {
                     commit('setUser', newUser)
                 }
 
-            }).catch(err =>{
-                commit('setError',err)
-                commit('setUser', null)
             })
-
         },
         getCaptcha({commit}) {
             httpClient.get("captcha").then(res => {
