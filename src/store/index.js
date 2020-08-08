@@ -3,13 +3,15 @@ import Vuex from 'vuex'
 
 import AuthModule from './AuthModule'
 import ChatModule from './ChatModule'
+import ContactModule from "./ContactModule";
 
 Vue.use(Vuex)
 
 export const store = new Vuex.Store({
   modules: {
     auth: AuthModule,
-    chat: ChatModule
+    chat: ChatModule,
+    contact: ContactModule,
   },
   state: {
     loading: false,

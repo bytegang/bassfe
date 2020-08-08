@@ -22,9 +22,9 @@ httpClient.interceptors.request.use(config => {
         return config
     }
     const err = {response: {code: 412}};
-    // if (store.getters.isTokenExpire) {
-    //     return Promise.reject(err)
-    // }
+    if (store.getters.isTokenExpire) {
+        return Promise.reject(err)
+    }
     let token = store.getters.token
     if (!token) {
         return Promise.reject(err)

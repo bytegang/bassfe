@@ -19,9 +19,7 @@ const AuthModule = {
         setCaptchaId(state, id) {
             state.captchaId = id
         },
-        setFriends(state, friends) {
-            state.friends = friends
-        },
+
     },
     actions: {
         doSignUp({commit}, payload) {
@@ -57,11 +55,7 @@ const AuthModule = {
                 commit('setCaptchaImg', res.image)
             })
         },
-        doFetchFriends({commit}) {
-            httpClient.get("friend").then(res => {
-                commit('setFriends', res)
-            })
-        }
+
     },
     getters: {
         user(state) {
@@ -70,9 +64,7 @@ const AuthModule = {
         token() {
             return localStorage.getItem('token')
         },
-        friends(state){
-            return state.friends
-        },
+
         isTokenExpire(state, getters) {
             let token = getters.token
             if (token) {

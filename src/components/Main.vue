@@ -144,7 +144,7 @@
 </template>
 
 <script>
-    import FriendList from "./Shared/FriendList";
+    import FriendList from "./Shared/ContactList";
     import FriendProfile from "./Shared/FriendProfile";
     import Chat from "./Shared/Chat";
 
@@ -190,7 +190,8 @@
             ],
         }),
         mounted() {
-            this.$store.dispatch('doFetchFriends')
+            this.$store.dispatch('fetchFriends')
+            this.$store.dispatch('fetchGroups')
         }
     }
 </script>
