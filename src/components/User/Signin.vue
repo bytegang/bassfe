@@ -89,10 +89,10 @@
     methods: {
       getCaptcha(){
         this.cv = ''
-        this.$store.dispatch('getCaptcha')
+        this.$store.dispatch('doFetchCaptcha')
       },
       onSignin () {
-        this.$store.dispatch('signUserIn', {email: this.email, password: this.password,ci:this.captchaId,cv:this.cv})
+        this.$store.dispatch('doSignIn', {email: this.email, password: this.password,ci:this.captchaId,cv:this.cv})
       },
 
     }

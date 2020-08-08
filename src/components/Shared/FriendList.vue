@@ -13,18 +13,18 @@
             :rounded="rounded"
     >
         <v-subheader>FRIENDS</v-subheader>
-        <v-list-item-group v-model="item" color="primary">
+        <v-list-item-group v-model="friendCount" color="primary">
             <v-list-item
-                    v-for="(item, i) in items"
+                    v-for="(item, i) in friends"
                     :key="i"
                     :inactive="inactive"
             >
-                <v-list-item-avatar v-if="avatar">
-                    <v-img :src="item.avatar"></v-img>
+                <v-list-item-avatar >
+                    <v-img :src="item.profile.avatar"></v-img>
                 </v-list-item-avatar>
                 <v-list-item-content>
-                    <v-list-item-title v-html="item.title"></v-list-item-title>
-                    <v-list-item-subtitle v-if="twoLine || threeLine" v-html="item.subtitle"></v-list-item-subtitle>
+                    <v-list-item-title v-html="item.name"></v-list-item-title>
+                    <v-list-item-subtitle v-if="twoLine || threeLine" v-html="item.profile.bio"></v-list-item-subtitle>
                 </v-list-item-content>
             </v-list-item>
         </v-list-item-group>
@@ -33,6 +33,7 @@
 
 <script>
     export default {
+        name: "FriendList",
         data: () => ({
             item: 5,
             items: [
@@ -75,7 +76,24 @@
             avatar: true,
             rounded: false,
         }),
-        name: "FriendList"
+        mounted(){
+        },
+        computed: {
+            friendCount(){return this.$store.getters.friends.length},
+            friends(){ return this.$store.getters.friends}
+        },
+        beforeUpdate(){
+            this.doFetchFriends()
+
+        },
+        methods: {
+            doFetchFriends(){
+                this.cv = ''
+                this.$store.dispatch('doFetchFriends')
+            },
+
+
+        }
     }
 </script>
 

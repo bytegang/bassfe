@@ -22,14 +22,14 @@ httpClient.interceptors.request.use(config => {
         return config
     }
     const err = {response: {code: 412}};
-    if (isJWTokenExpire()) {
-        return Promise.reject(err)
-    }
-    let token = localStorage.getItem('token');
+    // if (store.getters.isTokenExpire) {
+    //     return Promise.reject(err)
+    // }
+    let token = store.getters.token
     if (!token) {
         return Promise.reject(err)
     }
-    config.headers['Authorization'] = 'Bearer ' + token; // 让每个请求携带自定义token 请根据实际情况自行修改
+    config.headers['Authorization'] = token; // 让每个请求携带自定义token 请根据实际情况自行修改
     return config;
 }, error => {
     store.commit('setLoading', false)

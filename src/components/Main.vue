@@ -116,21 +116,19 @@
                 </v-avatar>
             </v-btn>
         </v-app-bar>
-        <v-main>
-            <v-container
-                    class="fill-height"
-                    fluid>
-                <v-row
-                        align="center"
-                        justify="center"
-                        no-gutters>
-                    <v-col><friend-list></friend-list></v-col>
-                    <v-col><chat></chat></v-col>
-                    <v-col><friend-profile></friend-profile>  </v-col>
+        <v-container
+                class="fill-height"
+                fluid>
+            <v-row
+                    align="center"
+                    justify="center"
+                    no-gutters>
+                <v-col><friend-list></friend-list></v-col>
+                <v-col><chat></chat></v-col>
+                <v-col><friend-profile></friend-profile>  </v-col>
 
-                </v-row>
-            </v-container>
-        </v-main>
+            </v-row>
+        </v-container>
         <v-btn
                 bottom
                 color="pink"
@@ -191,5 +189,8 @@
                 {icon: 'mdi-keyboard', text: 'Go to the old version'},
             ],
         }),
+        mounted() {
+            this.$store.dispatch('doFetchFriends')
+        }
     }
 </script>
