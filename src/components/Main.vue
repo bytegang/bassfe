@@ -120,14 +120,14 @@
                 class="fill-height"
                 fluid>
             <v-row
-                    align="center"
+                    align="start"
                     justify="center"
                     no-gutters>
                 <v-col cols="2">
-                    <contact-list></contact-list>
+                    <contact-list style="height: 70%"></contact-list>
                 </v-col>
-                <v-col>
-                    <chat></chat>
+                <v-col >
+                    <chat ></chat>
                 </v-col>
                 <v-col cols="2">
                     <friend-profile></friend-profile>
