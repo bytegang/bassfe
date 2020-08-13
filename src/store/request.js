@@ -1,5 +1,4 @@
 import axios from 'axios';
-import {isJWTokenExpire} from "./util";
 import {store} from "./index"
 
 // 创建axios实例
@@ -44,13 +43,13 @@ httpClient.interceptors.request.use(config => {
 httpClient.interceptors.response.use(response => {
         store.commit('setLoading', false)
         if (response.status !== 200) {
-            store.commit('setError', {type:"error",msg:"server failed"})
+            store.commit('setError', {type: "error", msg: "server failed"})
             return false
         }
 
         let res = response.data;
-        if (res.code !== 200){
-            store.commit('setError',{type:"warning",msg:res.msg}, )
+        if (res.code !== 200) {
+            store.commit('setError', {type: "warning", msg: res.msg},)
             return false
         }
 

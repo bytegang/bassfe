@@ -3,7 +3,7 @@
         <app-alert></app-alert>
 
         <v-layout row>
-            <v-flex xs12 sm6 offset-sm3>
+            <v-flex offset-sm3 sm6 xs12>
                 <v-card>
                     <v-card-text>
                         <v-container>
@@ -11,50 +11,50 @@
                                 <v-layout row>
                                     <v-flex xs12>
                                         <v-text-field
-                                                name="email"
-                                                label="E-mail"
                                                 id="email"
-                                                v-model="email"
+                                                label="E-mail"
+                                                name="email"
+                                                required
                                                 type="email"
-                                                required></v-text-field>
+                                                v-model="email"></v-text-field>
                                     </v-flex>
                                 </v-layout>
                                 <v-layout row>
                                     <v-flex xs12>
                                         <v-text-field
-                                                name="username"
-                                                label="Username"
                                                 id="username"
-                                                v-model="username"
+                                                label="Username"
+                                                name="username"
+                                                required
                                                 type="text"
-                                                required></v-text-field>
+                                                v-model="username"></v-text-field>
                                     </v-flex>
                                 </v-layout>
                                 <v-layout row>
                                     <v-flex xs12>
                                         <v-text-field
-                                                name="password"
-                                                label="Password"
                                                 id="password"
-                                                v-model="password"
+                                                label="Password"
+                                                name="password"
+                                                required
                                                 type="password"
-                                                required></v-text-field>
+                                                v-model="password"></v-text-field>
                                     </v-flex>
                                 </v-layout>
                                 <v-layout row>
                                     <v-flex xs12>
                                         <v-text-field
-                                                name="confirmPassword"
-                                                label="Validate Password"
+                                                :rules="[comparePasswords]"
                                                 id="confirmPassword"
-                                                v-model="confirmPassword"
+                                                label="Validate Password"
+                                                name="confirmPassword"
                                                 type="password"
-                                                :rules="[comparePasswords]"></v-text-field>
+                                                v-model="confirmPassword"></v-text-field>
                                     </v-flex>
                                 </v-layout>
                                 <v-layout>
                                     <v-flex xs12>
-                                        <v-btn type="submit" :loading="loading">Register</v-btn>
+                                        <v-btn :loading="loading" type="submit">Register</v-btn>
                                     </v-flex>
                                 </v-layout>
                             </form>

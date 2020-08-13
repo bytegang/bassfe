@@ -11,30 +11,30 @@ import AuthGuard from './auth-guard'
 Vue.use(Router)
 
 export default new Router({
-  routes: [
+    routes: [
 
-    {
-      path: '/login',
-      name: 'Signin',
-      component: Signin
-    },
-    {
-      path: '/main',
-      name: 'Main',
-      component: Main,
-      beforeEnter: AuthGuard
-    },
+        {
+            path: '/login',
+            name: 'Signin',
+            component: Signin
+        },
+        {
+            path: '/',
+            name: 'Main',
+            component: Main,
+            beforeEnter: AuthGuard
+        },
 
-    {
-      path: '/register',
-      name: 'Signup',
-      component: Signup
-    },
-    {
-      path: '/profile',
-      name: 'Profile',
-      component: Profile
-    }
-  ],
-  mode: 'history'
+        {
+            path: '/register',
+            name: 'Signup',
+            component: Signup
+        },
+        {
+            path: '/profile',
+            name: 'Profile',
+            component: Profile
+        }
+    ],
+    mode: 'history'
 })

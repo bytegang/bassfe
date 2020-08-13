@@ -36,7 +36,7 @@
     import ChatMsgInput from "./ChatMsgInput";
 
     export default {
-        components: {ChatMsg,ChatMsgInput},
+        components: {ChatMsg, ChatMsgInput},
         data: () => ({
             itemsPerPage: 1,
             items: [

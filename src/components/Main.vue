@@ -1,16 +1,16 @@
 <template>
     <v-app id="inspire">
         <v-navigation-drawer
-                v-model="drawer"
                 :clipped="$vuetify.breakpoint.lgAndUp"
                 app
+                v-model="drawer"
         >
             <v-list dense>
                 <template v-for="item in items">
                     <v-row
-                            v-if="item.heading"
                             :key="item.heading"
                             align="center"
+                            v-if="item.heading"
                     >
                         <v-col cols="6">
                             <v-subheader v-if="item.heading">
@@ -18,21 +18,21 @@
                             </v-subheader>
                         </v-col>
                         <v-col
-                                cols="6"
                                 class="text-center"
+                                cols="6"
                         >
                             <a
-                                    href="#!"
                                     class="body-2 black--text"
+                                    href="#!"
                             >EDIT</a>
                         </v-col>
                     </v-row>
                     <v-list-group
-                            v-else-if="item.children"
                             :key="item.text"
-                            v-model="item.model"
                             :prepend-icon="item.model ? item.icon : item['icon-alt']"
                             append-icon=""
+                            v-else-if="item.children"
+                            v-model="item.model"
                     >
                         <template v-slot:activator>
                             <v-list-item-content>
@@ -42,9 +42,9 @@
                             </v-list-item-content>
                         </template>
                         <v-list-item
-                                v-for="(child, i) in item.children"
                                 :key="i"
                                 link
+                                v-for="(child, i) in item.children"
                         >
                             <v-list-item-action v-if="child.icon">
                                 <v-icon>{{ child.icon }}</v-icon>
@@ -57,9 +57,9 @@
                         </v-list-item>
                     </v-list-group>
                     <v-list-item
-                            v-else
                             :key="item.text"
                             link
+                            v-else
                     >
                         <v-list-item-action>
                             <v-icon>{{ item.icon }}</v-icon>
@@ -81,18 +81,18 @@
         >
             <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
             <v-toolbar-title
-                    style="width: 300px"
                     class="ml-0 pl-4"
+                    style="width: 300px"
             >
                 <span class="hidden-sm-and-down">Talking Bass</span>
             </v-toolbar-title>
             <v-text-field
-                    flat
-                    solo-inverted
-                    hide-details
-                    prepend-inner-icon="mdi-magnify"
-                    label="Search"
                     class="hidden-sm-and-down"
+                    flat
+                    hide-details
+                    label="Search"
+                    prepend-inner-icon="mdi-magnify"
+                    solo-inverted
             ></v-text-field>
             <v-spacer></v-spacer>
             <v-btn icon>
@@ -106,12 +106,12 @@
                     large
             >
                 <v-avatar
-                        size="32px"
                         item
+                        size="32px"
                 >
                     <v-img
-                            src="https://cdn.vuetifyjs.com/images/logos/logo.svg"
                             alt="Vuetify"
+                            src="https://cdn.vuetifyjs.com/images/logos/logo.svg"
                     ></v-img>
                 </v-avatar>
             </v-btn>
@@ -123,20 +123,26 @@
                     align="center"
                     justify="center"
                     no-gutters>
-                <v-col><friend-list></friend-list></v-col>
-                <v-col><chat></chat></v-col>
-                <v-col><friend-profile></friend-profile>  </v-col>
+                <v-col cols="2">
+                    <friend-list></friend-list>
+                </v-col>
+                <v-col>
+                    <chat></chat>
+                </v-col>
+                <v-col cols="2">
+                    <friend-profile></friend-profile>
+                </v-col>
 
             </v-row>
         </v-container>
         <v-btn
+                @click="dialog = !dialog"
                 bottom
                 color="pink"
                 dark
                 fab
                 fixed
                 right
-                @click="dialog = !dialog"
         >
             <v-icon>mdi-plus</v-icon>
         </v-btn>
@@ -146,10 +152,10 @@
 <script>
     import FriendList from "./Shared/ContactList";
     import FriendProfile from "./Shared/FriendProfile";
-    import Chat from "./Shared/Chat";
+    import Chat from "./Chat/Chat";
 
     export default {
-        components: {FriendProfile,  Chat, FriendList},
+        components: {FriendProfile, Chat, FriendList},
         props: {
             source: String,
         },

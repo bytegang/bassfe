@@ -1,23 +1,23 @@
 <template>
     <v-card
+            :loading="true"
+            :title="'awesome is my last name'"
             class="mx-auto"
-            max-width="344"
-            outlined
             hover
             img=""
-            :loading="true"
+            max-width="344"
+            outlined
             ripple
-            :title="'awesome is my last name'"
 
     >
 
     </v-card>
-    
+
 </template>
 
 <script>
     export default {
-        data(){
+        data() {
             return {}
         },
         name: "ChatMsg"
