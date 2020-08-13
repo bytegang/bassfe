@@ -124,7 +124,7 @@
                     justify="center"
                     no-gutters>
                 <v-col cols="2">
-                    <friend-list></friend-list>
+                    <contact-list></contact-list>
                 </v-col>
                 <v-col>
                     <chat></chat>
@@ -150,12 +150,12 @@
 </template>
 
 <script>
-    import FriendList from "./Shared/ContactList";
+    import ContactList from "./Shared/ContactList";
     import FriendProfile from "./Shared/FriendProfile";
     import Chat from "./Chat/Chat";
 
     export default {
-        components: {FriendProfile, Chat, FriendList},
+        components: {FriendProfile, Chat,  ContactList},
         props: {
             source: String,
         },
@@ -201,3 +201,8 @@
         }
     }
 </script>
+<style>
+    .fill-height{
+        height: auto;
+    }
+</style>

@@ -6,7 +6,7 @@
             </v-card-title>
             <v-card-text>
                 <div class="emoji-content">
-                    <emoji :emoji="emoji" @click="onEmojiClick" v-bind:key="emoji.key" v-for="emoji in emojis"></emoji>
+                    <part-emoji :emoji="emoji" @click="onEmojiClick" v-bind:key="emoji.key" v-for="emoji in emojis"></part-emoji>
                 </div>
             </v-card-text>
         </v-card>
@@ -14,23 +14,23 @@
 </template>
 
 <script>
-    import Emoji from './PartEmoji.vue'
+    import PartEmoji from './PartEmoji.vue'
 
     export default {
         data() {
             return {
-                emojis: []
             }
         },
         props: {
-            show: true
+            show: true,
         },
         created() {
-            this.$http.get('https://raw.githubusercontent.com/shanraisshan/EmojiCodeSheet/master/json/string/People.json').then(response => {
-                this.emojis = response.body.peoples.people
-            }, response => {
-                // error callback
-            })
+
+        },
+        computed:{
+          emojis(){
+               return this.$store.getters.emojis;
+          },
         },
         methods: {
             onEmojiClick(emoji) {
@@ -41,7 +41,7 @@
             }
         },
         components: {
-            'emoji': Emoji
+            PartEmoji
         }
     }
 </script>
@@ -51,7 +51,7 @@
         background: white;
         bottom: 5rem;
         left: 0;
-        width: 200px;
+        /*width: 200px;*/
         user-select: none;
     }
 

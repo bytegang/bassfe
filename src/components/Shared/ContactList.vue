@@ -2,10 +2,11 @@
     <v-list
     >
         <v-subheader>FRIENDS</v-subheader>
-        <v-list-item-group color="primary" v-model="friendCount">
+        <v-list-item-group color="primary">
             <v-list-item
                     :key="item.id"
                     v-for="item in friends"
+                    @click="doSelectFriend(item)"
             >
                 <v-list-item-avatar>
                     <v-img :src="item.profile.avatar"></v-img>
@@ -18,10 +19,11 @@
             </v-list-item>
         </v-list-item-group>
         <v-subheader>Group</v-subheader>
-        <v-list-item-group color="primary" v-model="groupCount">
+        <v-list-item-group color="primary" >
             <v-list-item
                     :key="item.id"
                     v-for="item in groups"
+                    @click="doSelectGroup(item)"
             >
                 <v-list-item-avatar>
                     <v-img :src="item.avatar"></v-img>
@@ -43,14 +45,9 @@
         mounted() {
         },
         computed: {
-            friendCount() {
-                return this.$store.getters.friends.length
-            },
+
             friends() {
                 return this.$store.getters.friends
-            },
-            groupCount() {
-                return this.$store.getters.groups.length
             },
             groups() {
                 return this.$store.getters.groups
@@ -63,6 +60,13 @@
             },
             fetchGroups() {
                 this.$store.dispatch('fetchGroups')
+            },
+            doSelectFriend(friend){
+                this.$store.dispatch('doSelectFriend',friend)
+
+            },
+            doSelectGroup(group){
+                this.$store.dispatch('doSelectGroup',group)
             },
         }
     }

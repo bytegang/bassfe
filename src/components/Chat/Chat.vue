@@ -1,7 +1,7 @@
 <template>
     <v-container>
 
-
+        <h2 v-text="chatBoxTitle"></h2>
         <div class="chat-container" ref="chatContainer" v-on:scroll="onScroll">
             <message :messages="messages" @imageLoad="scrollToEnd"></message>
         </div>
@@ -35,13 +35,15 @@
         ],
         mounted() {
             this.loadChat()
-            this.$store.dispatch('loadOnlineUsers')
         },
         components: {
             'message': Message,
             'emoji-picker': EmojiPicker,
         },
         computed: {
+            chatBoxTitle(){
+              return this.$store.getters.chatBoxTitle
+            },
             messages() {
                 return this.chatMessages
             },
