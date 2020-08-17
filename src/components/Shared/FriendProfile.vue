@@ -1,5 +1,5 @@
 <template>
-    <v-content>Left Profile</v-content>
+    <v-main>Left Profile</v-main>
 </template>
 
 <script>
