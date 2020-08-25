@@ -117,13 +117,14 @@
             </v-btn>
         </v-app-bar>
         <v-container
-                class="fill-height"
+                class="fill-height "
                 fluid>
             <v-row
+                    class="height-100"
                     align="start"
                     justify="center"
                     no-gutters>
-                <v-col cols="2">
+                <v-col cols="2" class="user-group-container">
                     <contact-list style="height: 70%"></contact-list>
                 </v-col>
                 <v-col >
@@ -201,8 +202,12 @@
         }
     }
 </script>
-<style>
+<style lang="scss">
     .fill-height{
-        height: auto;
+        height: 100%;
+        .user-group-container {
+            height: calc(100% - 60px);
+            overflow-y: auto;
+        }
     }
 </style>
