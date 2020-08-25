@@ -19,9 +19,19 @@
     import Message from './PartMessage.vue'
     import EmojiPicker from './PartEmojiPicker.vue'
 
+    let msgObj = {
+        code:0,
+        msg:"",
+        uuid:"",
+        from_user_id:1,
+        to_user_id:2,
+        to_group_id:0,
+        payload:{body:"body msg"}
+    }
     export default {
         data() {
             return {
+                wsClient:null,
                 content: '',
                 chatMessages: [],
                 emojiPanel: false,
@@ -79,42 +89,42 @@
         },
         watch: {},
         methods: {
+            handleWsRecieveMsg(event){
+                console.log(event)
+
+            },
             fireWebsocket(){
-                let socket = new WebSocket("ws://localhost:9999/ws","ws");
+                let socket = new WebSocket("ws://localhost:9999/ws?_t="+this.$store.getters.token);
                 socket.onopen = function(e) {
                     console.log(e)
-                    alert("[open] Connection established");
-                    alert("Sending to server");
-                    socket.send("My name is John");
+                    // alert("[open] Connection established");
+                    // alert("Sending to server");
+                    // socket.send("My name is John");
                 };
-
+                let that = this
                 socket.onmessage = function(event) {
-                    alert(`[message] Data received from server: ${event.data}`);
+                    that.handleWsRecieveMsg(event)
+                    //alert(`[message] Data received from server: ${event.data}`);
                 };
 
                 socket.onclose = function(event) {
-                    if (event.wasClean) {
-                        alert(`[close] Connection closed cleanly, code=${event.code} reason=${event.reason}`);
-                    } else {
-                        // e.g. server process killed or network down
-                        // event.code is usually 1006 in this case
-                        alert('[close] Connection died');
-                    }
+                    // if (event.wasClean) {
+                    //     alert(`[close] Connection closed cleanly, code=${event.code} reason=${event.reason}`);
+                    // } else {
+                    //     // e.g. server process killed or network down
+                    //     // event.code is usually 1006 in this case
+                    //     alert('[close] Connection died');
+                    // }
+                    console.log(event)
                 };
 
                 socket.onerror = function(error) {
                     alert(`[error] ${error.message}`);
                 };
+                this.wsClient = socket
             },
             loadChat() {
-                this.totalChatHeight = this.$refs.chatContainer.scrollHeight
-                this.loading = false
-                if (this.id !== undefined) {
-                    this.chatMessages = []
-                    let chatID = this.id
-                    this.currentRef = firebase.database().ref('messages').child(chatID).child('messages').limitToLast(20)
-                    this.currentRef.on('child_added', this.onNewMessageAdded)
-                }
+
             },
             onScroll() {
 
@@ -133,15 +143,8 @@
                 return message
             },
             sendMessage() {
-                if (this.content !== '') {
-                    this.$store.dispatch('sendMessage', {
-                        username: this.username,
-                        content: this.content,
-                        date: new Date().toString(),
-                        chatID: this.id
-                    })
-                    this.content = ''
-                }
+                let msg = JSON.stringify(msgObj)
+                this.wsClient.send(msg)
             },
             scrollToEnd() {
                 this.$nextTick(() => {
