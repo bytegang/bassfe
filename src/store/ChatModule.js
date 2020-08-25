@@ -1957,8 +1957,14 @@ const ChatModule = {
         selectedFriend(state) {
             return state.selectedFriend
         },
+        selectedFriendId(state) {
+            return state.selectedFriend ? state.selectedFriend.id : 0
+        },
         selectedGroup(state) {
             return state.selectedGroup
+        },
+        selectedGroupId(state) {
+            return state.selectedGroup ? state.selectedGroup.id : 0
         },
         chatBoxTitle(state){
             if (state.selectedFriend){
