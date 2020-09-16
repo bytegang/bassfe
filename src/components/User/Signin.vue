@@ -83,7 +83,7 @@
         watch: {
             user(value) {
                 if (value !== null && value !== undefined) {
-                    this.$router.push('/main')
+                    this.$router.push('/')
                 }
             }
         },

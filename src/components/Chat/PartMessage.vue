@@ -1,13 +1,13 @@
 <template>
     <div>
-        <div :class="{own: message.user == username}" class="message" v-bind:key="index"
-             v-for="(message,index) in messages">
-            <div class="username" v-if="index>0 && messages[index-1].user != message.user">{{message.user}}</div>
-            <div class="username" v-if="index == 0">{{message.user}}</div>
+        <div :class="{own: ele.from_user_id == authedUserId}" class="message" v-bind:key="index"
+             v-for="(ele,index) in messages">
+            <div class="username" v-if="index>0 && messages[index-1].user != ele.user">{{ele.user}}</div>
+            <div class="username" v-if="index == 0">{{ele.user}}</div>
             <div style="margin-top: 5px"></div>
             <div class="content">
-                <div v-html="message.content"></div>
-                <chat-image :imgsrc="message.image" @imageLoad="imageLoad" v-if="message.image"></chat-image>
+                <div v-html="ele.payload.body"></div>
+                <chat-image :imgsrc="ele.image" @imageLoad="imageLoad" v-if="ele.image"></chat-image>
             </div>
         </div>
     </div>
@@ -27,8 +27,8 @@
             'chat-image': Image
         },
         computed: {
-            username() {
-                return this.$store.getters.user.username
+            authedUserId() {
+                return this.$store.getters.authedUser.id
             }
         },
         methods: {

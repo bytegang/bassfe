@@ -1,6 +1,5 @@
 <template>
     <v-container>
-
         <h2 v-text="chatBoxTitle"></h2>
         <div class="chat-container" ref="chatContainer" v-on:scroll="onScroll">
             <message :messages="messages" @imageLoad="scrollToEnd"></message>
@@ -145,6 +144,7 @@
             sendMessage() {
                 let msg = JSON.stringify(msgObj)
                 this.wsClient.send(msg)
+                this.chatMessages.push(msgObj)
             },
             scrollToEnd() {
                 this.$nextTick(() => {
@@ -199,7 +199,7 @@
 
     .chat-container {
         box-sizing: border-box;
-        height: calc(100vh - 9.5rem);
+        height: calc(100vh - 20rem);
         overflow-y: auto;
         padding: 10px;
         background-color: #f2f2f2;

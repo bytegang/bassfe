@@ -2,6 +2,7 @@ import httpClient from "./request";
 
 const AuthModule = {
     state: {
+        userAuthed:null,
         user: null,
         captchaId: "",
         captchaImg: "",
@@ -12,6 +13,9 @@ const AuthModule = {
             localStorage.setItem('user', payload)
             localStorage.setItem('token', payload ? payload.token : null)
             state.user = payload
+        },
+        setUserAuthed(state, payload) {
+            state.userAuthed = payload
         },
         setCaptchaImg(state, img) {
             state.captchaImg = img
@@ -36,7 +40,7 @@ const AuthModule = {
         doSignOut({commit}) {
             commit('setUser', null)
         },
-        doSignIn({commit}, payload) {
+        doSignIn({commit,dispatch}, payload) {
             httpClient.post(`login`, payload, {params: {ci: payload.ci, cv: payload.cv}}).then(res => {
                 if (res) {
                     const newUser = {
@@ -45,8 +49,18 @@ const AuthModule = {
                         token: res.token,
                     }
                     commit('setUser', newUser)
+
+                    dispatch('fetchAuthedUser')
                 }
 
+            })
+        },
+        fetchAuthedUser({commit}){
+            httpClient.get(`user/authed`, null, null).then(res => {
+                if (res) {
+                    debugger
+                    commit('setUserAuthed', res)
+                }
             })
         },
         doFetchCaptcha({commit}) {
@@ -74,11 +88,24 @@ const AuthModule = {
                     return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
                 }).join(''));
                 let user = JSON.parse(jsonPayload);
-                console.log(user)
+                //console.log(user)
                 return Date.now() > Date.parse(user.exp)
 
             } else {
                 return true
+            }
+        },
+        authedUser(state, getters) {
+            let token = getters.token
+            if (token) {
+                let base64Url = token.split('.')[1];
+                let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+                let jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
+                    return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+                }).join(''));
+                return JSON.parse(jsonPayload)
+            } else {
+                return null
             }
         },
         captchaId(state) {
